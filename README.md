@@ -6,6 +6,10 @@
 
 <img src=https://github.com/user-attachments/assets/a61bc6b7-fffb-449e-9c89-483a198d91ad width="500" alt="intro">
 
+## Version 1.3.0 (Customed)
+
+- GitHub의 Repository variable을 사용해서 `GitHub` 닉네임과 `Slack` id를 매칭하는 기능 추가
+
 ## Usage
 
 1. 메시지 전달을 위해 `SLACK_BOT_TOKEN` 이름의 secret을 세팅하세요.
@@ -28,9 +32,10 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - name: Request PR Review
-        uses: naver/request-pr-review@v1.2.1
+        uses: SnoopyComp/remind-pr-review@v1.3.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          slackIds: ${{ vars.SLACK_IDS }}
           slackBotToken: ${{ secrets.SLACK_BOT_TOKEN }}
           repoUrl: 'https://github.com/...'
 ```
@@ -40,6 +45,17 @@ jobs:
 ### `token`
 
 **Required** Github에서 제공하는 토큰
+
+### `slackIds`
+
+**Required** 레포지토리 내 동료들의 `GitHub 닉네임`:`Slack Id`
+
+**`Slack Id`: Slack 가입 이메일의 '@'앞부분**
+
+e.g.
+```
+"SnoopyComp:hyunchang52,hikarigin99:eunbi777"
+```
 
 ### `slackBotToken`
 

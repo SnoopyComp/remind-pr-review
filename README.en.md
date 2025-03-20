@@ -6,6 +6,10 @@ GitHub Actions to request pr reviews via Slack at set times
 
 <img src=https://github.com/user-attachments/assets/a61bc6b7-fffb-449e-9c89-483a198d91ad width="500" alt="intro">
 
+## Version 1.3.0 (Customed)
+
+- Add a feature that uses the GitHub repository variable to match the GitHub nickname with the Slack ID
+
 ## Usage
 
 1. Set up a secret named `SLACK_BOT_TOKEN` to send the message.
@@ -21,16 +25,17 @@ name: request pr review
 
 on:
   schedule:
-    - cron: '0 1 * * 1-5' # Runs every weekday at 10:00 AM
-    
+    - cron: '0 1 * * 1-5' # 평일 오전 10시마다 수행
+
 jobs:
   cron:
     runs-on: [ubuntu-latest]
     steps:
       - name: Request PR Review
-        uses: naver/request-pr-review@v1.2
+        uses: SnoopyComp/remind-pr-review@v1.3.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          slackIds: ${{ vars.SLACK_IDS }}
           slackBotToken: ${{ secrets.SLACK_BOT_TOKEN }}
           repoUrl: 'https://github.com/...'
 ```
@@ -40,6 +45,17 @@ jobs:
 ### `token`
 
 **Required** GitHub token
+
+### `slackIds`
+
+**Required** For colleagues in repo `Nickname of GitHub`:`Slack Id`
+
+**`Slack Id`: The part before the '@' in the Slack sign-up email.**
+
+e.g.
+```
+"SnoopyComp:hyunchang52,hikarigin99:eunbi777"
+```
 
 ### `slackBotToken`
 

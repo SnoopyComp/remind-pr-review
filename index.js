@@ -19,13 +19,13 @@ const authFetch = url => axios({
     url
 }).then(res => res.data);
 const createRequestPRData = (user) => ({
-    text: "좋은 아침이에요 :wave:",
+    text: "코드 리뷰를 할 시간 입니다 :wave:",
     blocks: [
         {
             type: "section",
             text: {
                 type: "mrkdwn",
-                text: "👋 좋은 아침입니다"
+                text: `👋 코드 리뷰를 할 시간 입니다!\n동료가 ${user.name}님만 애타게 기다리고 있어요!!!`
             }
         },
         {
@@ -163,11 +163,15 @@ class User {
     }
 
     get name() {
-        return this._email ? this._email.split("@")[0] : null;
+        return this._name ? this._name : null;
     }
 
     get requestedPRs() {
         return this._requestedPRs;
+    }
+
+    setName(name) {
+        this._name = name;
     }
 
     /**
@@ -191,6 +195,11 @@ const refineToApiUrl = repoUrl => {
 
     return `https://api.${host}/repos/${pathname}`;
 };
+const slackId = (slackIds, githubNickName) =>
+    slackIds
+        .split(",")
+        .map(row => row.split(":"))
+        .find(([githubName]) => githubName === githubNickName)?.[1];
 
 (async () => {
     try {
@@ -226,12 +235,10 @@ const refineToApiUrl = repoUrl => {
         core.info("Starting sending messages...");
 
         await Promise.all(users.map(user => {
-            if (!user.name) {
-                core.warning(`'${user.login}' has no public email.`);
-                return;
-            }
 
-            core.info(`Sending a message to ${user.name}...`);
+            user.setName(slackId(core.getInput("slackIds"), user.login));
+
+            core.info(`Sending a message to ${user.login}...`);
 
             return sendSlack(user, createRequestPRData(user));
         }));
