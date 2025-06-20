@@ -24,11 +24,11 @@
 
 `SLACK_IDS`: 레포지토리 내 동료들의 `GitHub 닉네임`:`Slack Id` 형태
 
-**`Slack Id`: Slack 가입 이메일의 '@'앞부분**
+**`Slack Id`: Slack 프로필 -> 멤버 ID 복사**
 
 e.g. 
 ```
-"SnoopyComp:hyunchang52,hikarigin99:eunbi777, ..."
+"SnoopyComp:U08UZVUFU8N,hikarigin99:U08VFBD06SG, ..."
 ```
 
 3. `.github/workflow/request-pr-review.yml` 파일을 만드세요:

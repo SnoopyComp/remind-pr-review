@@ -50,11 +50,11 @@ jobs:
 
 **Required** For colleagues in repo `Nickname of GitHub`:`Slack Id`
 
-**`Slack Id`: The part before the '@' in the Slack sign-up email.**
+**`Slack Id`: At slack profile -> Copy member ID
 
 e.g.
 ```
-"SnoopyComp:hyunchang52,hikarigin99:eunbi777"
+"SnoopyComp:U08UZVUFU8N,hikarigin99:U08VFBD06SG, ..."
 ```
 
 ### `slackBotToken`
