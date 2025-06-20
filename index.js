@@ -62,7 +62,7 @@ const sendSlack = (user, data) => axios({
     method: "post",
     headers: {
         Authorization: `Bearer ${core.getInput("slackBotToken")}`,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json; charset=utf-8"
     },
     url: "https://slack.com/api/chat.postMessage",
     data: {
